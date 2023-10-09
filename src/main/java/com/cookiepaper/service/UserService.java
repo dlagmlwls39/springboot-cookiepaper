@@ -1,5 +1,6 @@
 package com.cookiepaper.service;
 
+import com.cookiepaper.dto.UserDto;
 import com.cookiepaper.entity.User;
 
 public interface UserService {
@@ -11,6 +12,6 @@ public interface UserService {
     public Long checkEmail(String usEmail) throws Exception;
 
     // 회원가입
-    public User signUp(User newUser) throws Exception;
+    public User signUp(UserDto userDto) throws Exception;
 
 }
