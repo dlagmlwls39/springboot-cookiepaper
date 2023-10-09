@@ -14,4 +14,7 @@ public interface UserService {
     // 회원가입
     public User signUp(UserDto userDto) throws Exception;
 
+    // 로그인
+    public String login(UserDto userDto) throws Exception;
+
 }
