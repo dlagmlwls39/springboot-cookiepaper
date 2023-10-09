@@ -24,11 +24,11 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         // 헤더에서 토큰 받아오기
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);
 
-        // 토큰이 유효하다면
+        // 토큰 유효한 경우
         if (token != null && jwtTokenProvider.validateToken(token)) {
-            // 토큰으로부터 유저 정보를 받아
+            // 토큰으로부터 유저 정보 받아오기
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
-            // SecurityContext 에 객체 저장
+            // SecurityContext에 객체 저장
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
