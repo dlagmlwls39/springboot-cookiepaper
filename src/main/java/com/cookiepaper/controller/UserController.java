@@ -46,4 +46,10 @@ public class UserController {
                 new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>("fail", HttpStatus.OK);
     }
 
+    // 로그인
+    @RequestMapping(value={ "login" }, method= RequestMethod.POST)
+    public @ResponseBody String login(UserDto userDto) throws Exception {
+        return userService.login(userDto);
+    }
+
 }
