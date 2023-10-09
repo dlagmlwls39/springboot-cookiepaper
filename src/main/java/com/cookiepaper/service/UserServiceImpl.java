@@ -4,11 +4,14 @@ import com.cookiepaper.dto.UserDto;
 import com.cookiepaper.entity.User;
 import com.cookiepaper.repository.UserRepository;
 import com.cookiepaper.token.JwtTokenProvider;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -47,7 +50,7 @@ public class UserServiceImpl implements UserService {
                 .usPassword(bCryptPasswordEncoder.encode(userDto.getUsPassword()))
                 .usNickname(userDto.getUsNickname())
                 .usEmail(userDto.getUsEmail())
-                .roles(Collections.singletonList("ROLE_USER"))
+                .roles(Collections.singletonList("USER"))
                 .build();  // 비밀번호 암호화
 
         System.out.println("newUser pw = " + newUser.getUsPassword());
@@ -57,7 +60,7 @@ public class UserServiceImpl implements UserService {
     // 로그인
     @Override
     @Transactional
-    public String login(UserDto userDto) throws Exception {
+    public Map<String, Object> login(UserDto userDto) throws Exception {
         User user = userRepository.findById(userDto.getUsId())
                 .orElseThrow(() -> new IllegalArgumentException("가입하지 않은 아이디입니다."));
 
@@ -65,8 +68,16 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        // 로그인에 성공하면 id, roles 로 토큰 생성 후 반환
-        return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+        // 로그인에 성공하면 id, roles로 토큰 생성 후 유저 정보와 함께 반환
+        String token = jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        userDto = new UserDto(user.getUsId(), user.getUsNickname(), user.getUsEmail());
+
+        Map<String, Object> userWithAccessToken = objectMapper.convertValue(userDto, new TypeReference<Map<String, Object>>() {});
+        userWithAccessToken.put("token", token);
+
+        return userWithAccessToken;
     }
 
 }

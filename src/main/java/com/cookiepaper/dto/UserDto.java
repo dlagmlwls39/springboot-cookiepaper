@@ -3,8 +3,10 @@ package com.cookiepaper.dto;
 import com.sun.istack.NotNull;
 import lombok.*;
 
-@Getter @Setter
+@Getter
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
 
     @NotNull
@@ -19,9 +21,8 @@ public class UserDto {
     @NotNull
     private String usEmail;
 
-    public UserDto(String usId, String usPassword, String usNickname, String usEmail) {
+    public UserDto(String usId, String usNickname, String usEmail) {
         this.usId = usId;
-        this.usPassword = usPassword;
         this.usNickname = usNickname;
         this.usEmail = usEmail;
     }

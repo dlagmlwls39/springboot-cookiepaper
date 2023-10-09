@@ -3,6 +3,8 @@ package com.cookiepaper.service;
 import com.cookiepaper.dto.UserDto;
 import com.cookiepaper.entity.User;
 
+import java.util.Map;
+
 public interface UserService {
 
     // 아이디 중복 확인
@@ -15,6 +17,6 @@ public interface UserService {
     public User signUp(UserDto userDto) throws Exception;
 
     // 로그인
-    public String login(UserDto userDto) throws Exception;
+    public Map<String, Object> login(UserDto userDto) throws Exception;
 
 }
