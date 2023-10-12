@@ -27,14 +27,14 @@ public class UserServiceImpl implements UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    // 아이디 중복 확인
+    // 아이디 존재 여부 확인
     @Override
     public Long checkId(String usId) throws Exception {
         Long userCnt = userRepository.countByUsId(usId);
         return userCnt;
     }
 
-    // 이메일 중복 확인
+    // 이메일 존재 여부 확인
     @Override
     public Long checkEmail(String usEmail) throws Exception {
         Long userCnt = userRepository.countByUsEmail(usEmail);
@@ -47,11 +47,11 @@ public class UserServiceImpl implements UserService {
     public User signUp(UserDto userDto) throws Exception {
         User newUser = User.builder()
                 .usId(userDto.getUsId())
-                .usPassword(bCryptPasswordEncoder.encode(userDto.getUsPassword()))
+                .usPassword(bCryptPasswordEncoder.encode(userDto.getUsPassword()))  // 비밀번호 암호화
                 .usNickname(userDto.getUsNickname())
                 .usEmail(userDto.getUsEmail())
-                .roles(Collections.singletonList("USER"))
-                .build();  // 비밀번호 암호화
+                .roles(Collections.singletonList("USER"))  // 역할 부여
+                .build();
 
         System.out.println("newUser pw = " + newUser.getUsPassword());
         return userRepository.save(newUser);
@@ -78,6 +78,24 @@ public class UserServiceImpl implements UserService {
         userWithAccessToken.put("token", token);
 
         return userWithAccessToken;
+    }
+
+    // 아이디, 이메일 일치 여부 확인
+    @Override
+    public Long checkUser(String usId, String usEmail) {
+        Long userCnt = userRepository.countByUsIdAndUsEmail(usId, usEmail);
+        return userCnt;
+    }
+
+    // 비밀번호 재설정
+    @Override
+    @Transactional
+    public User updatePassword(String usId, String usPassword) throws Exception {
+        User user = userRepository.getById(usId);
+        user.setUsPassword(bCryptPasswordEncoder.encode(usPassword));
+
+        System.out.println("user pw = " + user.getUsPassword());
+        return userRepository.save(user);
     }
 
 }

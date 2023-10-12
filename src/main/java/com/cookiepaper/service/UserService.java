@@ -7,10 +7,10 @@ import java.util.Map;
 
 public interface UserService {
 
-    // 아이디 중복 확인
+    // 아이디 존재 여부 확인
     public Long checkId(String usId) throws Exception;
 
-    // 이메일 중복 확인
+    // 이메일 존재 여부 확인
     public Long checkEmail(String usEmail) throws Exception;
 
     // 회원가입
@@ -18,5 +18,11 @@ public interface UserService {
 
     // 로그인
     public Map<String, Object> login(UserDto userDto) throws Exception;
+
+    // 아이디, 이메일 일치 여부 확인
+    public Long checkUser(String usId, String usEmail) throws Exception;
+
+    // 비밀번호 재설정
+    public User updatePassword(String usId, String usPassword) throws Exception;
 
 }
