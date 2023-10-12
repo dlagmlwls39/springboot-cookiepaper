@@ -2,6 +2,7 @@ package com.cookiepaper.service;
 
 import com.cookiepaper.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,13 +17,10 @@ import java.util.Random;
 @Service
 public class MailServiceImpl implements MailService {
 
-    private final JavaMailSender javaMailSender;
-    private final UserRepository userRepository;
-
-    public MailServiceImpl(JavaMailSender javaMailSender, UserRepository userRepository) {
-        this.javaMailSender = javaMailSender;
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    JavaMailSender javaMailSender;
+    @Autowired
+    UserRepository userRepository;
 
     private final String authKey = createKey();  // 인증번호
     private final String username = "${spring.mail.username}";  // 메일 발신자

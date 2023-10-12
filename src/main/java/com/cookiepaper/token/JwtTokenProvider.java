@@ -1,6 +1,7 @@
 package com.cookiepaper.token;
 
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,16 +17,13 @@ import java.util.*;
 @Component
 public class JwtTokenProvider {
 
+    @Autowired
+    UserDetailsService userDetailsService;
+
     @Value("${jwt.secret}")
     private String secretKey;
 
     private long tokenValidTime = 60 * 60 * 24 * 1000L;     // 토큰 유효시간 24시간
-
-    private final UserDetailsService userDetailsService;
-
-    public JwtTokenProvider(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
 
     // 객체 초기화, secretKey를 Base64로 인코딩
     @PostConstruct
@@ -41,8 +39,8 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .setClaims(claims) // 정보 저장
                 .setIssuedAt(now) // 토큰 발행 시간 정보
-                .setExpiration(new Date(now.getTime() + tokenValidTime)) // 토큰 유효시각 설정
-                .signWith(SignatureAlgorithm.HS256, secretKey)  // 암호화 알고리즘과, secret 값
+                .setExpiration(new Date(now.getTime() + tokenValidTime)) // 토큰 유효시간 설정
+                .signWith(SignatureAlgorithm.HS256, secretKey)  // 암호화 알고리즘과 secretKey 값
                 .compact();
     }
 

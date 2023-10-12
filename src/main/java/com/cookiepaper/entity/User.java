@@ -26,20 +26,12 @@ public class User implements UserDetails {
     private String usNickname;
     @Column(name = "us_email")
     private String usEmail;
-
-    @ElementCollection(fetch = FetchType.EAGER) //roles 컬렉션
+    @ElementCollection(fetch = FetchType.EAGER) // roles 컬렉션
     @Builder.Default
     @Column(name = "us_role")
     private List<String> roles = new ArrayList<>();
 
     public User() {
-    }
-
-    @Override   //사용자의 권한 목록 리턴
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -72,6 +64,14 @@ public class User implements UserDetails {
         return true;
     }
 
+    // 사용자의 권한 목록 반환
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
     /**
      * 비밀번호 암호화
      * @param passwordEncoder 암호화할 인코더 클래스
@@ -100,4 +100,5 @@ public class User implements UserDetails {
         this.usEmail = usEmail;
         this.roles = roles;
     }
+
 }
