@@ -32,4 +32,5 @@ public class Oven {
         this.ovDesign = ovDesign;
         this.ovPrivateYn = ovPrivateYn;
     }
+
 }

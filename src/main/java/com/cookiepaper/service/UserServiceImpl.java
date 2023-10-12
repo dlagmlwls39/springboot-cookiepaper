@@ -6,6 +6,7 @@ import com.cookiepaper.repository.UserRepository;
 import com.cookiepaper.token.JwtTokenProvider;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,16 +17,12 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
-    private final JwtTokenProvider jwtTokenProvider;
-    private final PasswordEncoder bCryptPasswordEncoder;
-
-    public UserServiceImpl(UserRepository userRepository,
-                           JwtTokenProvider jwtTokenProvider, PasswordEncoder bCryptPasswordEncoder) {
-        this.userRepository = userRepository;
-        this.jwtTokenProvider = jwtTokenProvider;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    PasswordEncoder bCryptPasswordEncoder;
 
     // 아이디 존재 여부 확인
     @Override
