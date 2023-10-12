@@ -13,8 +13,9 @@ import javax.persistence.*;
 public class Oven {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ov_id")
-    private int ovId;
+    private Long ovId;
     @Column(name = "us_id")
     private String usId;
     @Column(name = "ov_design")
@@ -26,8 +27,7 @@ public class Oven {
     }
 
     @Builder
-    public Oven(int ovId, String usId, int ovDesign, int ovPrivateYn) {
-        this.ovId = ovId;
+    public Oven(String usId, int ovDesign, int ovPrivateYn) {
         this.usId = usId;
         this.ovDesign = ovDesign;
         this.ovPrivateYn = ovPrivateYn;
