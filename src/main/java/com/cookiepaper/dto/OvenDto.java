@@ -10,7 +10,7 @@ import lombok.*;
 public class OvenDto {
 
     @NotNull
-    private int ovId;
+    private Long ovId;
 
     @NotNull
     private String usId;
