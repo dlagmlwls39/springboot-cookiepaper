@@ -14,7 +14,7 @@ on:
     branches: [ "main" ]
 
 permissions:
-  contents: write-all
+  contents: write
 
 jobs:
   build:
@@ -42,7 +42,4 @@ jobs:
       with:
         arguments: build
     - name: Build with Gradle
-      run: ./gradlew build
-    - name: Test with Gradle
-      run: ./gradlew test
-        arguments: build
+      run: ./gradlew build -x check --parallel
