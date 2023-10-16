@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/oven/*")
+@CrossOrigin(origins = { "http://localhost:3000", "http://15.165.55.131:80" })
 public class OvenController {
 
     @Autowired
