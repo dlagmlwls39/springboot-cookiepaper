@@ -42,4 +42,4 @@ jobs:
       with:
         arguments: build
     - name: Build with Gradle
-      run: ./gradlew build -x check --parallel
+      run: ./gradlew build --warning-mode all
