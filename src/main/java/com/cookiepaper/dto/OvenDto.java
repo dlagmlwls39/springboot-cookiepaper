@@ -16,6 +16,9 @@ public class OvenDto {
     private String usId;
 
     @NotNull
+    private String usNickname;
+
+    @NotNull
     private int ovDesign;
 
     @NotNull

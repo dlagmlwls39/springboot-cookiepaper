@@ -1,5 +1,6 @@
 package com.cookiepaper.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,7 +11,6 @@ import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Builder
 @Entity
 @Data
 @Getter @Setter
@@ -22,6 +22,7 @@ public class User implements UserDetails {
     @Column(name = "us_id")
     private String usId;
     @Column(name = "us_password")
+    @JsonIgnore
     private String usPassword;
     @Column(name = "us_nickname")
     private String usNickname;
@@ -93,6 +94,7 @@ public class User implements UserDetails {
         return passwordEncoder.matches(plainPassword, this.usPassword);
     }
 
+    @Builder
     public User(String usId, String usPassword, String usNickname, String usEmail, List<String> roles) {
         this.usId = usId;
         this.usPassword = usPassword;
