@@ -6,7 +6,7 @@ import com.cookiepaper.repository.OvenRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class OvenServiceImpl implements OvenService {
@@ -22,7 +22,6 @@ public class OvenServiceImpl implements OvenService {
     @Transactional
     public Oven createOven(OvenDto ovenDto) throws Exception {
         Oven newOven = Oven.builder()
-                .usId(ovenDto.getUsId())
                 .ovDesign(ovenDto.getOvDesign())
                 .ovPrivateYn(ovenDto.getOvPrivateYn())
                 .build();
@@ -32,14 +31,26 @@ public class OvenServiceImpl implements OvenService {
 
     // 오븐 목록 조회
     @Override
-    public List<Oven> ovenList() throws Exception {
-        return ovenRepository.findAll();
+    public List<OvenDto> ovenList() throws Exception {
+        List<Oven> ovenList = ovenRepository.findAll();
+        List<OvenDto> ovenDtoList = new ArrayList<>();
+
+        for (int i = 0; i < ovenList.size(); i++) {
+            ovenDtoList.add(new OvenDto(ovenList.get(i).getOvId(),
+                    ovenList.get(i).getUser().getUsId(),
+                    ovenList.get(i).getUser().getUsNickname(),
+                    ovenList.get(i).getOvDesign(),
+                    ovenList.get(i).getOvPrivateYn()
+            ));
+        }
+
+        return ovenDtoList;
     }
 
     // 오븐 상세보기
     @Override
     public Oven ovenDetails(String usId) throws Exception {
-        return ovenRepository.getByUsId(usId);
+        return ovenRepository.getByUser(usId);
     }
 
 }

@@ -11,7 +11,7 @@ public interface OvenService {
     public Oven createOven(OvenDto ovenDto) throws Exception;
 
     // 오븐 목록 조회
-    public List<Oven> ovenList() throws Exception;
+    public List<OvenDto> ovenList() throws Exception;
 
     // 오븐 상세보기
     public Oven ovenDetails(String usId) throws Exception;
