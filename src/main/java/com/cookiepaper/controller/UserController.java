@@ -71,7 +71,7 @@ public class UserController {
     @PostMapping("findPassword")
     public @ResponseBody ResponseEntity findPassword(String usId, String usEmail) throws Exception {
         Long count = userService.checkUser(usId, usEmail);
-        if (count == 1) {  // 존재하는 회원인 경우 아이디 발송
+        if (count == 1) {  // 존재하는 회원인 경우 인증번호 발송
             String authKey = mailService.sendMail(usEmail, "findPassword");
             return new ResponseEntity<>(authKey, HttpStatus.OK);
         } else {  // 존재하지 않는 회원인 경우
@@ -81,8 +81,8 @@ public class UserController {
 
     // 비밀번호 재설정
     @PostMapping("updatePassword")
-    public @ResponseBody ResponseEntity updatePassword(String usId, String usPassword) throws Exception {
-        return userService.updatePassword(usId, usPassword) != null ?
+    public @ResponseBody ResponseEntity updatePassword(String usId, String usEmail, String usPassword) throws Exception {
+        return userService.updatePassword(usId, usEmail, usPassword) != null ?
                 new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>("fail", HttpStatus.OK);
     }
 

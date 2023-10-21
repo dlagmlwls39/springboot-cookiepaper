@@ -89,8 +89,8 @@ public class UserServiceImpl implements UserService {
     // 비밀번호 재설정
     @Override
     @Transactional
-    public User updatePassword(String usId, String usPassword) throws Exception {
-        User user = userRepository.getById(usId);
+    public User updatePassword(String usId, String usEmail, String usPassword) throws Exception {
+        User user = userRepository.getByUsIdAndUsEmail(usId, usEmail);
         user.setUsPassword(bCryptPasswordEncoder.encode(usPassword));
 
         System.out.println("user pw = " + user.getUsPassword());

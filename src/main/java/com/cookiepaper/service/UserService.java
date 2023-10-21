@@ -23,6 +23,6 @@ public interface UserService {
     public Long checkUser(String usId, String usEmail) throws Exception;
 
     // 비밀번호 재설정
-    public User updatePassword(String usId, String usPassword) throws Exception;
+    public User updatePassword(String usId, String usEmail, String usPassword) throws Exception;
 
 }
