@@ -3,7 +3,6 @@ package com.cookiepaper.controller;
 import com.cookiepaper.dto.UserDto;
 import com.cookiepaper.service.MailService;
 import com.cookiepaper.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +14,13 @@ import java.util.Map;
 @CrossOrigin(origins = { "http://localhost:3000", "http://15.165.55.131:80" })
 public class UserController {
 
-    @Autowired
-    UserService userService;
-    @Autowired
-    MailService mailService;
+    private final UserService userService;
+    private final MailService mailService;
+
+    public UserController(UserService userService, MailService mailService) {
+        this.userService = userService;
+        this.mailService = mailService;
+    }
 
     // 아이디 중복 확인
     @PostMapping("checkId")

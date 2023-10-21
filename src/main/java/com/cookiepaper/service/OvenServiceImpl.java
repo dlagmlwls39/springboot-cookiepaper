@@ -3,7 +3,6 @@ package com.cookiepaper.service;
 import com.cookiepaper.dto.OvenDto;
 import com.cookiepaper.entity.Oven;
 import com.cookiepaper.repository.OvenRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,8 +11,11 @@ import java.util.List;
 @Service
 public class OvenServiceImpl implements OvenService {
 
-    @Autowired
-    OvenRepository ovenRepository;
+    private final OvenRepository ovenRepository;
+
+    public OvenServiceImpl(OvenRepository ovenRepository) {
+        this.ovenRepository = ovenRepository;
+    }
 
     // 오븐 생성
     @Override

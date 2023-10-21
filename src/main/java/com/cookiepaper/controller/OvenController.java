@@ -2,7 +2,6 @@ package com.cookiepaper.controller;
 
 import com.cookiepaper.dto.OvenDto;
 import com.cookiepaper.service.OvenService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = { "http://localhost:3000", "http://15.165.55.131:80" })
 public class OvenController {
 
-    @Autowired
-    OvenService ovenService;
+    private final OvenService ovenService;
+
+    public OvenController(OvenService ovenService) {
+        this.ovenService = ovenService;
+    }
 
     // 오븐 생성
     @PostMapping("create")
