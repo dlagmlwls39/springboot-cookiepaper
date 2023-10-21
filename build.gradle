@@ -1,11 +1,9 @@
 plugins {
 	id 'java'
+	id 'war'
 	id 'org.springframework.boot' version '2.7.16'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
-
-group = 'com.cookiepaper'
-version = '0.0.1-SNAPSHOT'
 
 java {
 	sourceCompatibility = '1.8'
@@ -15,8 +13,14 @@ repositories {
 	mavenCentral()
 }
 
-bootJar {
-	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+//bootJar {
+//	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+//}
+
+bootWar {
+	archiveBaseName = "cookiepaper"
+	archiveFileName = "cookiepaper.war"
+	archiveVersion = "0.0.1"
 }
 
 dependencies {
@@ -35,6 +39,7 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl'
 	implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.2'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 //	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '10.4.28'
 }
 
