@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OvenRepository extends JpaRepository<Oven, Integer> {
 
-    Oven getByUser(String usId);
+    Oven getByUsId(String usId);
+
+    int countByUsId(String usId);
 
 }

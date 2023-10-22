@@ -21,12 +21,17 @@ public class OvenServiceImpl implements OvenService {
     @Override
     @Transactional
     public Oven createOven(OvenDto ovenDto) throws Exception {
-        Oven newOven = Oven.builder()
-                .ovDesign(ovenDto.getOvDesign())
-                .ovPrivateYn(ovenDto.getOvPrivateYn())
-                .build();
+        int count = ovenRepository.countByUsId(ovenDto.getUsId());
 
-        return ovenRepository.save(newOven);
+        if (count <= 0) {
+            Oven newOven = Oven.builder()
+                    .usId(ovenDto.getUsId())
+                    .ovDesign(ovenDto.getOvDesign())
+                    .ovPrivateYn(ovenDto.getOvPrivateYn())
+                    .build();
+            return ovenRepository.save(newOven);
+        } else
+            return null;
     }
 
     // 오븐 목록 조회
@@ -50,7 +55,7 @@ public class OvenServiceImpl implements OvenService {
     // 오븐 상세보기
     @Override
     public Oven ovenDetails(String usId) throws Exception {
-        return ovenRepository.getByUser(usId);
+        return ovenRepository.getByUsId(usId);
     }
 
 }

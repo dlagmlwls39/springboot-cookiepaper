@@ -1,6 +1,7 @@
 package com.cookiepaper.controller;
 
 import com.cookiepaper.dto.OvenDto;
+import com.cookiepaper.entity.Oven;
 import com.cookiepaper.service.OvenService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,8 @@ public class OvenController {
     // 오븐 생성
     @PostMapping("create")
     public @ResponseBody ResponseEntity createOven(OvenDto ovenDto) throws Exception {
-        return new ResponseEntity<>(ovenService.createOven(ovenDto), HttpStatus.OK);
+        Oven oven = ovenService.createOven(ovenDto);
+        return new ResponseEntity<>(oven != null ? oven : "fail", HttpStatus.OK);
     }
 
     // 오븐 목록 조회

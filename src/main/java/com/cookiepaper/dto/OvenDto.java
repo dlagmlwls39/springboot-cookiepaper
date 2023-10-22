@@ -24,4 +24,10 @@ public class OvenDto {
     @NotNull
     private int ovPrivateYn;
 
+    public OvenDto(String usId, int ovDesign, int ovPrivateYn) {
+        this.usId = usId;
+        this.ovDesign = ovDesign;
+        this.ovPrivateYn = ovPrivateYn;
+    }
+
 }
