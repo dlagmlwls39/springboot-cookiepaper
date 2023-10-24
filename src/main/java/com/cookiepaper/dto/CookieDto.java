@@ -1,5 +1,6 @@
 package com.cookiepaper.dto;
 
+import com.cookiepaper.entity.Cookie;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,9 @@ public class CookieDto {
 
     @NotNull
     private int ckPrivateYn;
+
+    public CookieDto(Cookie cookie) {
+    }
 
     public CookieDto(Long ovId, String ckNickname, String ckContent, int ckDesign, int ckPrivateYn) {
         this.ovId = ovId;
