@@ -54,8 +54,15 @@ public class OvenServiceImpl implements OvenService {
 
     // 오븐 상세보기
     @Override
-    public Oven ovenDetails(String usId) throws Exception {
-        return ovenRepository.getByUsId(usId);
+    public OvenDto ovenDetails(String usId) throws Exception {
+        Oven oven = ovenRepository.getByUsId(usId);
+        OvenDto ovenDto = new OvenDto(oven.getOvId(),
+                oven.getUser().getUsId(),
+                oven.getUser().getUsNickname(),
+                oven.getOvDesign(),
+                oven.getOvPrivateYn()
+        );
+        return ovenDto;
     }
 
 }

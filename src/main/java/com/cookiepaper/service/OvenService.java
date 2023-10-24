@@ -14,7 +14,7 @@ public interface OvenService {
     public List<OvenDto> ovenList() throws Exception;
 
     // 오븐 상세보기
-    public Oven ovenDetails(String usId) throws Exception;
+    public OvenDto ovenDetails(String usId) throws Exception;
 
 
 }
