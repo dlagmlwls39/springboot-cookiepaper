@@ -20,7 +20,7 @@ public class OvenController {
 
     // 오븐 생성
     @PostMapping("create")
-    public @ResponseBody ResponseEntity createOven(OvenDto ovenDto) throws Exception {
+    public @ResponseBody ResponseEntity createOven(@RequestBody OvenDto ovenDto) throws Exception {
         Oven oven = ovenService.createOven(ovenDto);
         return new ResponseEntity<>(oven != null ? oven : "fail", HttpStatus.OK);
     }

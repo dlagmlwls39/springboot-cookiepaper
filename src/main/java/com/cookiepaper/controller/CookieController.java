@@ -1,6 +1,7 @@
 package com.cookiepaper.controller;
 
 import com.cookiepaper.dto.CookieDto;
+import com.cookiepaper.entity.Cookie;
 import com.cookiepaper.service.CookieService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -21,8 +22,9 @@ public class CookieController {
 
     // 쿠키 생성
     @PostMapping("create")
-    public @ResponseBody ResponseEntity createCookie(CookieDto cookieDto) throws Exception {
-        return new ResponseEntity<>(cookieService.createCookie(cookieDto) != null ? "success" : "fail", HttpStatus.OK);
+    public @ResponseBody ResponseEntity createCookie(@RequestBody CookieDto cookieDto) throws Exception {
+        Cookie cookie = cookieService.createCookie(cookieDto);
+        return new ResponseEntity<>(cookie != null ? "success" : "fail", HttpStatus.OK);
     }
 
     // 쿠키 목록 조회
