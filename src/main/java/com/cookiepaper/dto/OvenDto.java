@@ -3,10 +3,11 @@ package com.cookiepaper.dto;
 import com.sun.istack.NotNull;
 import lombok.*;
 
-@Getter
+@Getter @Setter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class OvenDto {
 
     @NotNull

@@ -2,15 +2,13 @@ package com.cookiepaper.dto;
 
 import com.cookiepaper.entity.Cookie;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Getter
+@Getter @Setter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class CookieDto {
 
     @NotNull

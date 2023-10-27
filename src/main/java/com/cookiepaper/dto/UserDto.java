@@ -1,20 +1,19 @@
 package com.cookiepaper.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.*;
 
-@Getter
+@Getter @Setter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class UserDto {
 
     @NotNull
     private String usId;
 
     @NotNull
-    @JsonIgnore
     private String usPassword;
 
     @NotNull
