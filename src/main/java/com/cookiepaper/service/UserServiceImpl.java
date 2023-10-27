@@ -1,7 +1,9 @@
 package com.cookiepaper.service;
 
 import com.cookiepaper.dto.UserDto;
+import com.cookiepaper.entity.Oven;
 import com.cookiepaper.entity.User;
+import com.cookiepaper.repository.OvenRepository;
 import com.cookiepaper.repository.UserRepository;
 import com.cookiepaper.token.JwtTokenProvider;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -17,12 +19,14 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final OvenRepository ovenRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider
-                            , PasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, OvenRepository ovenRepository
+                           , JwtTokenProvider jwtTokenProvider, PasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.ovenRepository = ovenRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
@@ -60,11 +64,17 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Map<String, Object> login(UserDto userDto) throws Exception {
-        User user = userRepository.findById(userDto.getUsId())
-                .orElseThrow(() -> new IllegalArgumentException("가입하지 않은 아이디입니다."));
+        User user = userRepository.findById(userDto.getUsId()).get();
 
+        // 아이디가 존재하지 않는 경우
+        if (user == null) {
+            return null;
+        }
+
+        // 비밀번호가 일치하지 않는 경우
         if (!bCryptPasswordEncoder.matches(userDto.getUsPassword(), user.getUsPassword())) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            //throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            return null;
         }
 
         // 로그인에 성공하면 id, roles로 토큰 생성 후 유저 정보와 함께 반환
@@ -72,9 +82,11 @@ public class UserServiceImpl implements UserService {
         ObjectMapper objectMapper = new ObjectMapper();
 
         userDto = new UserDto(user.getUsId(), user.getUsNickname(), user.getUsEmail());
+        Oven oven = ovenRepository.getByUsId(user.getUsId());  // 해당 유저의 오븐 정보
 
         Map<String, Object> userWithAccessToken = objectMapper.convertValue(userDto, new TypeReference<Map<String, Object>>() {});
         userWithAccessToken.put("token", token);
+        userWithAccessToken.put("oven", oven);
 
         return userWithAccessToken;
     }
