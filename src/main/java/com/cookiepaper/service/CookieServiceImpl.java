@@ -35,9 +35,7 @@ public class CookieServiceImpl implements CookieService {
     // 쿠키 목록 조회
     @Override
     public CookieListDto cookieList(Long ovId, Pageable pageable) throws Exception {
-        Page<Cookie> results = cookieRepository.findByOvIdOrderByCkIdDesc(ovId, pageable);
-
-        System.out.println(results.getContent());
+        Page<Cookie> results = cookieRepository.findByOvId(ovId, pageable);
 
         CookieListDto cookieListDto = CookieListDto.builder()
                 .cookieList(results.getContent())

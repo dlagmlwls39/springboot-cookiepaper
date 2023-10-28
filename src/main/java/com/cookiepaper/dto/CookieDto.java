@@ -30,6 +30,12 @@ public class CookieDto {
     private int ckPrivateYn;
 
     public CookieDto(Cookie cookie) {
+        this.ckId = cookie.getCkId();
+        this.ovId = cookie.getOvId();
+        this.ckNickname = cookie.getCkNickname();
+        this.ckContent = cookie.getCkContent();
+        this.ckDesign = cookie.getCkDesign();
+        this.ckPrivateYn = cookie.getCkPrivateYn();
     }
 
     public CookieDto(Long ovId, String ckNickname, String ckContent, int ckDesign, int ckPrivateYn) {

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CookieRepository extends JpaRepository<Cookie, Long> {
 
-    Page<Cookie> findByOvIdOrderByCkIdDesc(Long ovId, Pageable pageable);
+    Page<Cookie> findByOvId(Long ovId, Pageable pageable);
 
     Cookie getByCkId(Long ckId);
 

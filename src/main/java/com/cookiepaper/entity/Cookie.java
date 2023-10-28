@@ -7,8 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Getter
-@Setter
+@Getter @Setter
 @ToString
 @Table(name="tb_cookie")
 public class Cookie {
