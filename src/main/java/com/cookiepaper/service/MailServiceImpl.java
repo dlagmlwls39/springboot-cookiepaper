@@ -19,21 +19,26 @@ public class MailServiceImpl implements MailService {
     private final JavaMailSender javaMailSender;
     private final UserRepository userRepository;
 
+    private final String username = "${spring.mail.username}";  // 메일 발신자
+    private String authKey = "";  // 인증번호
+    private String usId = ""; // 사용자 아이디
+
     public MailServiceImpl(JavaMailSender javaMailSender, UserRepository userRepository) {
         this.javaMailSender = javaMailSender;
         this.userRepository = userRepository;
     }
 
-    private final String authKey = createKey();  // 인증번호
-    private final String username = "${spring.mail.username}";  // 메일 발신자
-    private String usId = ""; // 회원 아이디
-
     // 인증번호 생성
-    public static String createKey() {
+    public String createKey() {
         Random random = new Random();
-        String authKey = String.valueOf(random.nextInt(888888) + 111111); // 범위: 111111 ~ 999999
-
+        authKey = String.valueOf(random.nextInt(888888) + 111111); // 범위: 111111 ~ 999999
         return authKey;
+    }
+
+    // 사용자 아이디 조회
+    public String getUsId(String usEmail) {
+        usId = userRepository.getByUsEmail(usEmail).getUsId();
+        return usId;
     }
 
     // 메일 생성
@@ -59,7 +64,7 @@ public class MailServiceImpl implements MailService {
         msg += "<h1 style=\"font-size: 30px; padding-right: 30px; padding-left: 30px;\">" + title + "</h1>";
         //msg += "<p style=\"font-size: 17px; padding-right: 30px; padding-left: 30px;\">아래 인증번호를 회원가입 화면에서 입력해 주세요.</p>";
         msg += "<div style=\"padding-right: 30px; padding-left: 30px; margin: 32px 0 40px;\"><table style=\"border-collapse: collapse; border: 0; background-color: #F4F4F4; height: 70px; table-layout: fixed; word-wrap: break-word; border-radius: 6px;\"><tbody><tr><td style=\"text-align: center; vertical-align: middle; font-size: 30px;\">";
-        msg += type == "findId" ? usId : authKey;
+        msg += type == "findId" ? getUsId(usEmail) : createKey();
         msg += "</td></tr></tbody></table></div>";
 
         message.setText(msg, "UTF-8", "html"); // 내용, charset 타입, subtype
@@ -75,7 +80,6 @@ public class MailServiceImpl implements MailService {
         bean으로 등록해둔 javaMailSender 객체를 사용하여 메일 발송
      */
     public String sendMail(String usEmail, String type) throws Exception {
-        usId = userRepository.getByUsEmail(usEmail).getUsId();
         MimeMessage message = createMessage(usEmail, type);
         try {
             javaMailSender.send(message); // 메일 발송
