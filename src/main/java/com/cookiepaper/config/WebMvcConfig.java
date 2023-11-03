@@ -15,9 +15,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         // 모든 경로에 대해
         registry.addMapping("/**")
-                // Origin http:localhost:3000, http://15.165.55.131:80에 대해
-                .allowedOrigins("http://localhost:3000", "http://15.165.55.131:80")
-                // GET, POST, PUT, PATCH, DELETE, OPTIONS 메서드 허용
+                .allowedOrigins("http://localhost:3000", "http://15.165.55.131:80", "https://cookie-paper.vercel.app")
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true)

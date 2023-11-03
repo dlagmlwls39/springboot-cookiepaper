@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/oven/*")
-@CrossOrigin(origins = { "http://localhost:3000", "http://15.165.55.131:80" })
+@CrossOrigin(origins = { "http://localhost:3000", "http://15.165.55.131:80", "https://cookie-paper.vercel.app" })
 public class OvenController {
 
     private final OvenService ovenService;
