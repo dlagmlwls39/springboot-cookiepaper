@@ -32,7 +32,7 @@
 </tr>
 <tr align="center">
 <td>Notion</td>
-<td>[https://www.notion.so/7910f0913d264005bda5fa0433ad77ba](https://fierce-dive-1ec.notion.site/418026c7965a48639e5a9328be79823b)</td>
+<td>https://fierce-dive-1ec.notion.site/418026c7965a48639e5a9328be79823b</td>
 </tr>
 <tr align="center">
 <td>URL/td>
