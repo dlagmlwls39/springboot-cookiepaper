@@ -35,7 +35,7 @@
 <td>https://fierce-dive-1ec.notion.site/418026c7965a48639e5a9328be79823b</td>
 </tr>
 <tr align="center">
-<td>URL/td>
+<td>URL</td>
 <td>https://cookie-paper.vercel.app/</td>
 </tr>
 </table>
