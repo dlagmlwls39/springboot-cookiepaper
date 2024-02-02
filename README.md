@@ -11,17 +11,6 @@
 <td>멋쟁이 사자처럼 프론트엔드 스쿨 7기 수강생들을 위한 롤링페이퍼</td>
 </tr>
 <tr align="center">
-<td>프로젝트 기간</td>
-<td>2023.08.10 ~ 2023.11.04</td>
-</tr>
-<tr align="center">
-<td>개발 기간</td>
-<td>2023.10.04 ~ 2023.11.04</td>
-</tr>
-<tr align="center">
-<td>개발 환경</td>
-<td>Java(jdk 1.8), SpringBoot, Tomcat 9.0.82, Apache 2, MySQL, AWS</td>
-</tr>
 <tr align="center">
 <td>프로젝트 인원</td>
 <td>디자이너 1명, 프론트엔드 1명, 백엔드 1명</td>
@@ -29,6 +18,18 @@
 <tr align="center">
 <td>역할</td>
 <td>백엔드</td>
+</tr>
+<tr align="center">
+<td>프로젝트 기간</td>
+<td>2023.08.10 ~ 2023.11.04</td>
+</tr>
+<tr align="center">
+<td>개발 기간(백엔드)</td>
+<td>2023.10.04 ~ 2023.11.04</td>
+</tr>
+<tr align="center">
+<td>개발 환경(백엔드)</td>
+<td>Java(jdk 1.8), SpringBoot, MySQL, Tomcat 9.0.82, Apache 2, AWS</td>
 </tr>
 <tr align="center">
 <td>Notion</td>
