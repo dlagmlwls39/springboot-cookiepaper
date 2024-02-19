@@ -29,7 +29,7 @@
 </tr>
 <tr align="center">
 <td>개발 환경(백엔드)</td>
-<td>Java(jdk 1.8), SpringBoot, MySQL, Tomcat 9.0.82, Apache 2, AWS</td>
+<td>Java(jdk 1.8), SpringBoot, MariaDB, Tomcat 9.0.82, Apache 2, AWS</td>
 </tr>
 <tr align="center">
 <td>Notion</td>
